@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './App.css';
 
 function App() {
   const [backendStatus, setBackendStatus] = useState('');
@@ -51,15 +52,22 @@ function App() {
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1>Simulador de Horas Zendesk</h1>
-      <p>Status do Backend: {backendStatus}</p>
+    <div className="app-container">
+      <header className="header">
+        <h1>Simulador de Horas Zendesk</h1>
+      </header>
+      <main className="main-content">
+        <div className="form-container">
+          <h1>Simulador de Horas Zendesk</h1>
+          <p className={`status-message ${backendStatus.includes('online') ? 'online' : 'offline'}`}>
+            Status do Backend: {backendStatus}
+          </p>
 
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px', maxWidth: '400px' }}>
-        <fieldset style={{ border: '1px solid #ccc', padding: '10px' }}>
-          <legend>Módulos:</legend>
+          <form onSubmit={handleSubmit} className="form">
+            <fieldset className="fieldset">
+              <legend>Módulos:</legend>
           {['Support', 'Guide', 'Talk', 'Chat', 'Explore'].map(modulo => (
-            <label key={modulo} style={{ display: 'block' }}>
+            <label key={modulo} className="checkbox-label">
               <input
                 type="checkbox"
                 value={modulo}
@@ -71,10 +79,10 @@ function App() {
           ))}
         </fieldset>
 
-        <fieldset style={{ border: '1px solid #ccc', padding: '10px' }}>
+        <fieldset className="fieldset">
           <legend>Recursos Nativos:</legend>
           {['Copilot', 'QA', 'WFM', 'AgentesIA'].map(recurso => (
-            <label key={recurso} style={{ display: 'block' }}>
+            <label key={recurso} className="checkbox-label">
               <input
                 type="checkbox"
                 value={recurso}
@@ -86,26 +94,31 @@ function App() {
           ))}
         </fieldset>
 
-        <label>
+        <label className="form-group">
           Complexidade:
-          <select value={complexidade} onChange={(e) => setComplexidade(e.target.value)} style={{ marginLeft: '10px', padding: '5px' }}>
+          <select value={complexidade} onChange={(e) => setComplexidade(e.target.value)} className="select-input">
             <option value="baixa">Baixa</option>
             <option value="media">Média</option>
             <option value="alta">Alta</option>
           </select>
         </label>
 
-        <button type="submit" style={{ padding: '10px 15px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
+        <button type="submit" className="submit-button">
           Simular Horas
         </button>
       </form>
 
       {horasCalculadas !== null && (
-        <div style={{ marginTop: '20px', padding: '15px', border: '1px solid #007bff', borderRadius: '5px', backgroundColor: '#e7f3ff' }}>
+        <div className="result-container">
           <h2>Resultado da Simulação:</h2>
           <p>Horas Calculadas: {horasCalculadas}</p>
         </div>
       )}
+        </div>
+      </main>
+      <footer className="footer">
+        <p>&copy; 2024 Simulador de Horas Zendesk. Todos os direitos reservados.</p>
+      </footer>
     </div>
   );
 }
